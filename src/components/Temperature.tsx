@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { kelvinToCelsius, kelvinToFahrenheit } from '../utils/temperature';
 import { weatherCharacters } from '../utils/characters';
+import styled from 'styled-components';
 
 interface TemperatureProps {
 	value: number;
@@ -20,10 +21,12 @@ const Temperature = ({ value, unit }: TemperatureProps) => {
 	}, [value, unit]);
 
 	return (
-		<span>
+		<Wrapper>
 			{temperature.toFixed(0)} {weatherCharacters[unit]}
-		</span>
+		</Wrapper>
 	);
 };
 
 export default Temperature;
+
+const Wrapper = styled.span``;

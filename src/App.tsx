@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { createGlobalStyle } from 'styled-components';
 import { CurrentWeather } from './components/CurrentWeather';
 
 function App() {
@@ -20,9 +21,22 @@ function App() {
 
 	return (
 		<div>
+			<GlobalStyles />
 			<CurrentWeather location={position} />
 		</div>
 	);
 }
 
 export default App;
+
+const GlobalStyles = createGlobalStyle`
+	@font-face {
+		font-family: 'Museo Moderno';
+		src: url('MuseoModerno-Regular.tff');
+	}
+
+	body {
+		margin: 0;
+		font-family: 'Museo Moderno', 'Fira Sans', 'Segoe UI', sans-serif !important;
+	}
+`;

@@ -5,6 +5,7 @@ import { Datetime } from '../styles/common';
 import { H2 } from '../styles/headers';
 import Temperature from './Temperature';
 import WeatherIcon from './WeatherIcons';
+import { Location } from './Location';
 
 interface CurrentWeatherProps {
 	location: string | Position;
@@ -38,7 +39,7 @@ export const CurrentWeather = ({ location }: CurrentWeatherProps) => {
 				</div>
 				<WeatherIcon weather={weather.weather[0].main} size={38} />
 			</Header>
-			<div>{weather.name}</div>
+			<Location location={weather.name} />
 			<Temperature value={weather.main.temp} unit={'celsius'} />
 			<FeelsLike>
 				Feels like <Temperature value={weather.main.feels_like} unit={'celsius'} />
@@ -58,6 +59,7 @@ const Wrapper = styled.div`
 const Header = styled.div`
 	display: flex;
 	justify-content: space-between;
+	padding-bottom: 6px;
 `;
 
 const FeelsLike = styled.div`

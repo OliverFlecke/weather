@@ -40,6 +40,6 @@ export const currentWeatherResponse: WeatherResponse = {
 	},
 	timezone: 7200,
 	id: 2618425,
-	name: 'Copenhagen',
+	name: 'Some place',
 	cod: 200,
 };

@@ -1,5 +1,3 @@
-import { currentWeatherResponse } from './sample';
-
 const apiKey = 'a9de9f43a51c3d8468834371a221c8f3';
 const baseUrl = 'https://api.openweathermap.org';
 
@@ -10,10 +8,10 @@ export async function getForCity(city: string): Promise<WeatherResponse> {
 	query.searchParams.append('appid', apiKey);
 	query.searchParams.append('q', city);
 
-	// const response = await fetch(query.toString());
-	// const body = await response.json()
+	const response = await fetch(query.toString());
+	const body = await response.json();
 
-	return currentWeatherResponse;
+	return body;
 }
 
 export async function getForCoordinates(lon: number, lat: number): Promise<WeatherResponse> {
@@ -22,10 +20,10 @@ export async function getForCoordinates(lon: number, lat: number): Promise<Weath
 	query.searchParams.append('lat', lat.toString());
 	query.searchParams.append('lon', lon.toString());
 
-	// const response = await fetch(query.toString());
-	// const body = await response.json();
+	const response = await fetch(query.toString());
+	const body = await response.json();
 
-	return currentWeatherResponse;
+	return body;
 }
 
 export type MainWeather =
