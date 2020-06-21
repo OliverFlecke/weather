@@ -1,4 +1,4 @@
-import { WeatherResponse } from './api';
+import { WeatherResponse } from './openweather';
 
 export const currentWeatherResponse: WeatherResponse = {
 	coord: {

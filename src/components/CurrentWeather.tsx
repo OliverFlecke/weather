@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { getForCity, WeatherResponse } from '../api/api';
-import { weatherCharacters } from '../utils/characters';
 import styled from 'styled-components';
-import { H2 } from '../styles/headers';
+import { getForCity, getForCoordinates, WeatherResponse } from '../api/openweather';
 import { Datetime } from '../styles/common';
+import { H2 } from '../styles/headers';
 import Temperature from './Temperature';
+import WeatherIcon from './WeatherIcons';
 
 interface CurrentWeatherProps {
-	location: string;
+	location: string | Position;
 }
 
 export const CurrentWeather = ({ location }: CurrentWeatherProps) => {
@@ -15,7 +15,11 @@ export const CurrentWeather = ({ location }: CurrentWeatherProps) => {
 
 	useEffect(() => {
 		async function getWeather() {
-			setWeather(await getForCity(location));
+			if (typeof location === 'string') {
+				setWeather(await getForCity(location));
+			} else {
+				setWeather(await getForCoordinates(location.coords.longitude, location.coords.latitude));
+			}
 		}
 
 		getWeather();
@@ -27,13 +31,18 @@ export const CurrentWeather = ({ location }: CurrentWeatherProps) => {
 
 	return (
 		<Wrapper>
-			<H2>Current weather</H2>
-			<Datetime>{new Date(weather.dt * 1000).toLocaleString()}</Datetime>
+			<Header>
+				<div>
+					<H2>Current weather</H2>
+					<Datetime>{new Date(weather.dt * 1000).toLocaleString()}</Datetime>
+				</div>
+				<WeatherIcon weather={weather.weather[0].main} size={38} />
+			</Header>
 			<div>{weather.name}</div>
 			<Temperature value={weather.main.temp} unit={'celsius'} />
-			<div>
+			<FeelsLike>
 				Feels like <Temperature value={weather.main.feels_like} unit={'celsius'} />
-			</div>
+			</FeelsLike>
 		</Wrapper>
 	);
 };
@@ -44,4 +53,13 @@ const Wrapper = styled.div`
 	margin: 20px;
 	padding: 6px;
 	max-width: 400px;
+`;
+
+const Header = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
+const FeelsLike = styled.div`
+	font-size: 0.8em;
 `;
